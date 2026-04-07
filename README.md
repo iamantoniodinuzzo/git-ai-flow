@@ -71,14 +71,17 @@ Open `~/.gitconfig` and add the content from `gitconfig-aliases.ini`, or run:
 cat git-ai-flow/gitconfig-aliases.ini >> ~/.gitconfig
 ```
 
-Then set your identity (if not already configured globally):
+Then open `~/.gitconfig` and replace the placeholder identity with your own:
 
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
+```ini
+[user]
+    name  = Your Name        # ← replace with your full name
+    email = you@example.com  # ← replace with your Git email
 ```
 
-> **Note:** On Windows `~` resolves to `C:\Users\YourName\`.
+> **Note:** If you already have a `[user]` block in your `~/.gitconfig`, remove the one added by the command above to avoid duplicates.
+>
+> On Windows `~` resolves to `C:\Users\YourName\`.
 
 ---
 
