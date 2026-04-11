@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-04-11
+
+### Added
+- Interactive push to origin after successful branch finish.
+- Enhanced branch cleanup with confirmation and optional force delete.
+- Improved issue number extraction logic to prevent false positives (e.g., from version numbers like 0.2.0).
+- Automatic push of tags for release and hotfix branches.
+
+### Fixed
+- ShellCheck warnings in scripts for better reliability.
+- MarkdownLint warnings in documentation.
+
 ## [0.2.0] - 2026-04-11
 
 ### Added
