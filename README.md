@@ -86,6 +86,38 @@ git finish
 # Generates merge message, merges to develop (and main if needed), deletes branch
 ```
 
+### 5. Release & Hotfix Workflow
+For standard releases and urgent fixes:
+
+1. **Prepare the Changelog:**
+   Update `CHANGELOG.md` with the new version header (e.g., `## [1.0.0]`). Do not add a date yet.
+
+2. **Start a release/hotfix:**
+   ```bash
+   # Automatically detects version from CHANGELOG.md
+   git start release
+   
+   # Or specify manually
+   git start hotfix v1.0.1
+   ```
+
+3. **Work and commit:**
+   ```bash
+   git add .
+   git c
+   ```
+
+4. **Finish the branch:**
+   ```bash
+   git finish
+   ```
+   **What happens automatically:**
+   - **Changelog Update:** If a matching version is found in `CHANGELOG.md` without a date, it automatically appends the current date (e.g., `## [1.0.0] - 2026-04-11`).
+   - **Merge targets:** Merges into **both** `main` and `develop`.
+   - **AI Summary:** Generates a detailed merge message from all branch commits.
+   - **Tagging:** Automatically creates a Git tag with the version name (e.g., `v1.0.0`).
+   - **Cleanup:** Deletes the local release/hotfix branch.
+
 ## Troubleshooting
 - **Gemini not found:** Ensure `gemini` is in your PATH and you have run `gemini login`.
 - **Permission denied (macOS/Linux):** Ensure you ran `chmod +x` on the scripts in `~/.git-scripts/`.

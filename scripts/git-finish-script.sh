@@ -126,6 +126,32 @@ if [ -z "$FULL_MSG" ]; then
   exit 1
 fi
 
+# ─── Update CHANGELOG.md (for release/hotfix) ────────────────────
+if [ "$TYPE" = "release" ] || [ "$TYPE" = "hotfix" ]; then
+  if [ -f "CHANGELOG.md" ]; then
+    DATE=$(date +%Y-%m-%d)
+    CLEAN_NAME=$(echo "$NAME" | sed 's/^v//')
+    TARGET_VER=""
+    if grep -q "## \[$NAME\]" CHANGELOG.md; then
+      TARGET_VER="$NAME"
+    elif grep -q "## \[$CLEAN_NAME\]" CHANGELOG.md; then
+      TARGET_VER="$CLEAN_NAME"
+    fi
+
+    if [ -n "$TARGET_VER" ]; then
+      # Escape periods for sed
+      ESC_VER=$(echo "$TARGET_VER" | sed 's/\./\\./g')
+      # Check if it already has a date
+      if ! grep "## \[$TARGET_VER\]" CHANGELOG.md | grep -qE '[0-9]{4}-[0-9]{2}-[0-9]{2}'; then
+        sed "s/## \[$ESC_VER\].*/## \[$TARGET_VER\] - $DATE/" CHANGELOG.md > CHANGELOG.md.tmp && mv CHANGELOG.md.tmp CHANGELOG.md
+        printf "📝 Updated CHANGELOG.md with date %s\n" "$DATE"
+        git add CHANGELOG.md
+        git commit -m "chore: update changelog for $TARGET_VER" --quiet
+      fi
+    fi
+  fi
+fi
+
 # ─── Execute Merge ───────────────────────────────────────────────
 printf "\n"
 for TARGET in $TARGETS; do
