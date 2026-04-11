@@ -181,11 +181,42 @@ if [ "$TYPE" = "release" ] || [ "$TYPE" = "hotfix" ]; then
   fi
 fi
 
-# Delete branch
-if ! git branch -d "$CURRENT"; then
-  printf "⚠️  Could not delete branch '%s' (possibly not fully merged elsewhere?)\n" "$CURRENT"
-else
-  printf "🗑️  Branch '%s' deleted\n" "$CURRENT"
+# ─── Push to origin (optional/prompted) ──────────────────────────
+printf "\n🚀 Push to origin? [Y/n] (default: y) → "
+read -r PUSH_CHOICE
+PUSH_CHOICE=${PUSH_CHOICE:-y}
+
+if [[ "$PUSH_CHOICE" =~ ^[Yy]$ ]]; then
+  for TARGET in "${TARGETS[@]}"; do
+    printf "📤 Pushing %s...\n" "$TARGET"
+    git push origin "$TARGET"
+  done
+  if [ "$TYPE" = "release" ] || [ "$TYPE" = "hotfix" ]; then
+    printf "📤 Pushing tags...\n"
+    git push origin --tags
+  fi
+  printf "✅ Push completed\n"
+fi
+
+# ─── Cleanup ─────────────────────────────────────────────────────
+printf "\n🗑️  Delete branch '%s'? [Y/n] (default: y) → "
+read -r DEL_CHOICE
+DEL_CHOICE=${DEL_CHOICE:-y}
+
+if [[ "$DEL_CHOICE" =~ ^[Yy]$ ]]; then
+  if ! git branch -d "$CURRENT"; then
+    printf "⚠️  Could not delete branch '%s' with -d. Force delete? [y/N] → " "$CURRENT"
+    read -r FORCE_DEL
+    FORCE_DEL=${FORCE_DEL:-n}
+    if [[ "$FORCE_DEL" =~ ^[Yy]$ ]]; then
+      git branch -D "$CURRENT"
+      printf "🗑️  Branch '%s' deleted (forced)\n" "$CURRENT"
+    else
+      printf "⚠️  Branch '%s' kept\n" "$CURRENT"
+    fi
+  else
+    printf "🗑️  Branch '%s' deleted\n" "$CURRENT"
+  fi
 fi
 
 printf "\n🎉 Done! → \"%s\"\n" "$(echo "$FULL_MSG" | head -n 1)"
