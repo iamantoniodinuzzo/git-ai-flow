@@ -25,7 +25,7 @@ On Windows, scripts must run under Git Bash (not PowerShell). The aliases call `
 
 **Manual testing checklist (from CONTRIBUTING.md):**
 ```bash
-git init-flow                 # creates develop from main, pushes to origin
+git init-flow                 # creates develop from main/master, pushes to origin
 git start feature 123_test    # branch creation
 git c                          # interactive commit
 git finish                     # merge + close
@@ -60,8 +60,8 @@ git finish
 2. Parses branch type and name, extracts issue number
 3. Resolves merge targets by branch type:
    - `feature/*`, `bugfix/*` → `develop` only
-   - `release/*`, `hotfix/*` → `main` + `develop`, creates version tag, updates CHANGELOG
-   - `support/*` → `main` only
+   - `release/*`, `hotfix/*` → `main`/`master` + `develop`, creates version tag, updates CHANGELOG
+   - `support/*` → `main`/`master` only
 4. Auto-generates a merge message: CC type prefix (`feat`/`fix`/`chore(release)` etc.) + subject from branch name + bullet-point commit list
 5. Appends `Close #N` footer if issue number is present
 6. Shows the message and asks `Accept? [Y/n/e(dit)]` — unlike `git c`, the edit path prompts inline (no editor re-open)
@@ -72,8 +72,8 @@ git finish
 
 ### Utility Aliases (from `gitconfig-aliases.ini`)
 
-- `git init-flow` — creates `develop` from `main` and pushes to origin
-- `git start <type> <name>` — creates `type/name` branch from the correct base (`develop` or `main`)
+- `git init-flow` — creates `develop` from `main`/`master` and pushes to origin
+- `git start <type> <name>` — creates `type/name` branch from the correct base (`develop` or `main`/`master`)
 - `git publish` — pushes the current branch to origin
 - `git sync` — checks out `develop` and pulls
 - `git st-flow` — lists all active GitFlow branches (`feature/`, `bugfix/`, etc.)

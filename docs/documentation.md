@@ -114,9 +114,9 @@ Identifies the branch type (`feature`, `bugfix`, `release`, `hotfix`, `support`)
 |---|---|---|
 | `feature` | `develop` | `develop` |
 | `bugfix` | `develop` | `develop` |
-| `release` | `develop` | `main develop` |
-| `hotfix` | `main` | `main develop` |
-| `support` | `main` | `main` |
+| `release` | `develop` | `main`/`master` + `develop` |
+| `hotfix` | `main`/`master` | `main`/`master` + `develop` |
+| `support` | `main`/`master` | `main`/`master` |
 
 **4. Message generation**
 
@@ -162,7 +162,7 @@ Deletes the local branch after successful merges.
 
 | Alias | Script / Command | Description |
 |---|---|---|
-| `git init-flow` | inline shell function | Creates `develop` branch from `main` and pushes to origin |
+| `git init-flow` | inline shell function | Creates `develop` branch from `main`/`master` and pushes to origin |
 | `git start <type> <name>` | inline shell function | Creates branch from correct base after pulling latest |
 | `git c` | `git-commit-script.sh` | Interactive CC commit with editor template |
 | `git finish` | `git-finish-script.sh` | Auto-generated merge message + close issue + optional tag |

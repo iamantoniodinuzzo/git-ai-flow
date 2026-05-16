@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1] - 2026-05-16
+
+### Fixed
+- Added support for both `main` and `master` as default branches. The tool now dynamically detects which one exists instead of hardcoding `main`, fixing the "pathspec 'main' did not match" error in older or legacy repositories. 
+
 ## [0.4.0] - 2026-04-27
 
 ### Added
