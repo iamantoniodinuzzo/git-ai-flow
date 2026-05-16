@@ -36,10 +36,10 @@ shellcheck scripts/*.sh
 
 Before opening a PR, please verify:
 - [ ] `git start feature 123_test` creates the branch from `develop`.
-- [ ] `git start hotfix 1.2.1_fix` creates the branch from `main`.
+- [ ] `git start hotfix 1.2.1_fix` creates the branch from `main`/`master`.
 - [ ] `git c` opens the editor with the Conventional Commits template and produces a valid commit.
 - [ ] `git finish` on a feature branch merges into `develop` and deletes the branch.
-- [ ] `git finish` on a release/hotfix branch merges into BOTH `main` and `develop`.
+- [ ] `git finish` on a release/hotfix branch merges into BOTH `main`/`master` and `develop`.
 - [ ] Error handling: try running `git c` without staged files.
 
 ## Branching & PRs

@@ -26,11 +26,21 @@ else
   ISSUE_NUM=""
 fi
 
+# Determine main branch (main or master)
+if git show-ref --verify --quiet refs/heads/main; then
+  MAIN_BRANCH="main"
+elif git show-ref --verify --quiet refs/heads/master; then
+  MAIN_BRANCH="master"
+else
+  printf "❌ Neither 'main' nor 'master' branch found.\n"
+  exit 1
+fi
+
 # Determine merge base and targets
 case "$TYPE" in
-  hotfix)  BASE=main;    TARGETS=("main" "develop") ;;
-  release) BASE=develop; TARGETS=("main" "develop") ;;
-  support) BASE=main;    TARGETS=("main") ;;
+  hotfix)  BASE="$MAIN_BRANCH";    TARGETS=("$MAIN_BRANCH" "develop") ;;
+  release) BASE=develop; TARGETS=("$MAIN_BRANCH" "develop") ;;
+  support) BASE="$MAIN_BRANCH";    TARGETS=("$MAIN_BRANCH") ;;
   *)       BASE=develop; TARGETS=("develop") ;;
 esac
 

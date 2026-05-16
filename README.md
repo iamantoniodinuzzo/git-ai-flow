@@ -94,7 +94,7 @@ git config --global core.editor "vim"
 
 ### Initialize Flow
 
-If your project only has a `main` branch, create `develop`:
+If your project only has a `main` or `master` branch, create `develop`:
 
 ```
 $ git init-flow
@@ -265,8 +265,8 @@ Close #456
 
 | Command | Description |
 |---|---|
-| `git init-flow` | Creates `develop` from `main` and pushes to origin |
-| `git start <type> <name>` | Creates `type/name` from the correct base branch |
+| `git init-flow` | Creates `develop` from `main` or `master` and pushes to origin |
+| `git start <type> <name>` | Creates `type/name` from the correct base branch (`develop` or `main`/`master`) |
 | `git c` | Interactive commit with Conventional Commits template |
 | `git finish` | Merges the current branch, tags if release/hotfix, cleans up |
 | `git publish` | Pushes the current branch to origin |
@@ -279,9 +279,9 @@ Close #456
 |---|---|---|
 | `feature/*` | `develop` | No |
 | `bugfix/*` | `develop` | No |
-| `release/*` | `main` + `develop` | Yes |
-| `hotfix/*` | `main` + `develop` | Yes |
-| `support/*` | `main` | No |
+| `release/*` | `main`/`master` + `develop` | Yes |
+| `hotfix/*` | `main`/`master` + `develop` | Yes |
+| `support/*` | `main`/`master` | No |
 
 ---
 
